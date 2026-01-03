@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deckflow"
-version = "0.1.0"
+version = "0.1.1"
 description = "Programmatic PowerPoint management and updates"
 authors = [{ name="Nicolas Pogeant" }]
 readme = "README.md"
@@ -14,6 +14,11 @@ dependencies = [
 ]
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/npogeant/deckflow"

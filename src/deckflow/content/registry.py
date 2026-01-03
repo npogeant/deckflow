@@ -1,12 +1,15 @@
+from typing import Any, List, Dict, Optional
+
+
 class ContentRegistry:
     """Registry for managing slide content items."""
     
-    def __init__(self, charts: list, texts: list, tables: list):
+    def __init__(self, charts: List[Dict[str, Any]], texts: List[Dict[str, Any]], tables: List[Dict[str, Any]]):
         self.charts = charts
         self.texts = texts
         self.tables = tables
     
-    def get_item_by_name(self, items: list, name: str, item_type: str) -> dict | None:
+    def get_item_by_name(self, items: List[Dict[str, Any]], name: str, item_type: str) -> Optional[Dict[str, Any]]:
         """Generic method to get an item by name with duplicate checking."""
         from .duplicate import DuplicateManager
         

@@ -208,3 +208,12 @@ __marimo__/
 
 # Inputs
 inputs/
+
+# Local virtualenv used for Python 3.9 tests
+.venv39
+
+# VS Code settings
+.vscode/
+
+# Local notebook used for interactive testing
+test.ipynb

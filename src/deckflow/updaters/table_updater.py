@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 class TableUpdater:
     """Updater for table elements."""
@@ -19,7 +19,7 @@ class TableUpdater:
         print(f"Invalid cell indices ({row},{col}) for table {self.rows}x{self.cols}")
         return False
 
-    def update_row(self, row_index: int, values: list[Any]) -> bool:
+    def update_row(self, row_index: int, values: List[Any]) -> bool:
         if not (0 <= row_index < self.rows):
             print(f"Invalid row index {row_index}")
             return False
@@ -28,7 +28,7 @@ class TableUpdater:
         print(f"Row {row_index} updated")
         return True
 
-    def update_column(self, col_index: int, values: list[Any]) -> bool:
+    def update_column(self, col_index: int, values: List[Any]) -> bool:
         if not (0 <= col_index < self.cols):
             print(f"Invalid column index {col_index}")
             return False

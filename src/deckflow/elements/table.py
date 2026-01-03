@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List, Optional, Union
 
 from ..content.table_extractor import extract_table_data
 from ..updaters.table_updater import TableUpdater
@@ -23,24 +23,24 @@ class DeckTable:
         self.original_data = [row[:] for row in self.data]
         self._updater = TableUpdater(self)
     
-    def get_data(self) -> list[list[str]]:
+    def get_data(self) -> List[List[str]]:
         return [row[:] for row in self.data]
     
-    def get_cell(self, row: int, col: int) -> str | None:
+    def get_cell(self, row: int, col: int) -> Optional[str]:
         if 0 <= row < self.rows and 0 <= col < self.cols:
             return self.data[row][col]
         else:
             print(f"Invalid cell indices ({row}, {col}). Table size: {self.rows}x{self.cols}")
             return None
     
-    def get_row(self, row_index: int) -> list[str] | None:
+    def get_row(self, row_index: int) -> Optional[List[str]]:
         if 0 <= row_index < self.rows:
             return self.data[row_index][:]
         else:
             print(f"Invalid row index {row_index}. Table has {self.rows} rows")
             return None
     
-    def get_column(self, col_index: int) -> list[str] | None:
+    def get_column(self, col_index: int) -> Optional[List[str]]:
         if 0 <= col_index < self.cols:
             return [row[col_index] for row in self.data]
         else:
@@ -51,11 +51,11 @@ class DeckTable:
         self._updater.update_cell(row, col, value)
         return self._updater.save_changes()
     
-    def update_row(self, row_index: int, values: list[str]):
+    def update_row(self, row_index: int, values: List[str]):
         self._updater.update_row(row_index, values)
         return self._updater.save_changes()
     
-    def update_column(self, col_index: int, values: list[str]):
+    def update_column(self, col_index: int, values: List[str]):
         self._updater.update_column(col_index, values)
         return self._updater.save_changes()
     

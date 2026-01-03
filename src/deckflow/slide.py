@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from .content.finder import ContentFinder
 from .content.registry import ContentRegistry
@@ -74,7 +74,7 @@ class DeckSlide:
                 chart.update_series(series_name, values)
         chart.save_changes()
 
-    def update_table(self, name: str, new_data: list, by_rows: bool = True, by_columns: bool = False) -> None:
+    def update_table(self, name: str, new_data: List, by_rows: bool = True, by_columns: bool = False) -> None:
         """Update a table with new data either by rows or by columns."""
         if by_rows and by_columns:
             raise ValueError("Only one of by_rows or by_columns can be True.")

@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, List, Dict
 
 class SlidePrinter:
     """Formats and prints slide content information."""
     
     @staticmethod
-    def print_summary(registry: Any) -> dict[str, int]:
+    def print_summary(registry: Any) -> Dict[str, int]:
         """Print content summary."""
         charts_count = len(registry.charts)
         texts_count = len(registry.texts)
@@ -32,14 +32,14 @@ class SlidePrinter:
         }
     
     @staticmethod
-    def _print_charts(charts: list[dict[str, Any]]):
+    def _print_charts(charts: List[Dict[str, Any]]):
         print(f"\n📈 CHARTS:")
         for chart_info in charts:
             chart_name = chart_info['name']
             print(f"  \033[1m{chart_name}\033[0;0m.")
     
     @staticmethod
-    def _print_texts(texts: list[dict[str, Any]]):
+    def _print_texts(texts: List[Dict[str, Any]]):
         print(f"\n📄 TEXT SHAPES:")
         for text_info in texts:
             text_obj = text_info['text_obj']
@@ -49,7 +49,7 @@ class SlidePrinter:
             print(f"  \033[1m{text_name}\033[0;0m.: '{preview}'")
     
     @staticmethod
-    def _print_tables(tables: list[dict[str, Any]]):
+    def _print_tables(tables: List[Dict[str, Any]]):
         print(f"\n📋 TABLES:")
         for table_info in tables:
             table_obj = table_info['table_obj']

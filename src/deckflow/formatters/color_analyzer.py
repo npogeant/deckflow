@@ -1,10 +1,11 @@
+from typing import Optional, Tuple
 import re
 
 class ColorAnalyzer:
     """Analyze a line of text and return an RGB color if it contains a numeric value."""
 
     @staticmethod
-    def get_color_for_value(text: str) -> tuple[int, int, int] | None:
+    def get_color_for_value(text: str) -> Optional[Tuple[int, int, int]]:
         try:
             numbers = re.findall(r'-?\d+(?:\.\d+)?', text.replace(',', '').replace(' ', ''))
             if not numbers:

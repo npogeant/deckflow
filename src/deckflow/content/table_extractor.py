@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, List
 
-def extract_table_data(table: Any) -> list[list[str]]:
+def extract_table_data(table: Any) -> List[List[str]]:
     """ 
     Extract table data safely from a pptx table object.
     
     Returns:
-        list: 2D list containing all cell text values
+        List: 2D list containing all cell text values
     """
     data = []
     try:
