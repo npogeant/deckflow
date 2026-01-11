@@ -4,6 +4,7 @@ from .content.finder import ContentFinder
 from .content.registry import ContentRegistry
 from .content.duplicate import DuplicateManager
 from .formatters.slide_printer import SlidePrinter
+from .adders.image_adder import ImageAdder
 
 class DeckSlide:
     """Manage all content in a slide."""
@@ -92,3 +93,15 @@ class DeckSlide:
         elif by_columns:
             for col_idx, col_data in enumerate(new_data):
                 table.update_column(col_idx, col_data)
+
+    def add_image_from_text(self, text_name: str, image_path: str, keep_height: bool = True, keep_width: bool = False) -> None:
+        """Add an image to the slide positioned at a text element's location."""
+        text_element = self.get_text(text_name)
+        if not text_element:
+            raise ValueError(f"Text element '{text_name}' not found")
+        
+        success = ImageAdder.add_image_from_text(
+            self.slide, text_element, image_path, keep_height, keep_width
+        )
+        if not success:
+            raise RuntimeError(f"Failed to add image at text element '{text_name}'")

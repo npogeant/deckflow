@@ -36,7 +36,7 @@ class SlidePrinter:
         print(f"\n📈 CHARTS:")
         for chart_info in charts:
             chart_name = chart_info['name']
-            print(f"  \033[1m{chart_name}\033[0;0m.")
+            print(f"  \033[1m{chart_name}\033[0;0m")
     
     @staticmethod
     def _print_texts(texts: List[Dict[str, Any]]):
@@ -46,7 +46,7 @@ class SlidePrinter:
             text_name = text_info['name']
             content = text_obj.get_content()
             preview = content[:50] + ('...' if len(content) > 50 else '')
-            print(f"  \033[1m{text_name}\033[0;0m.: '{preview}'")
+            print(f"  \033[1m{text_name}\033[0;0m : '{preview}'")
     
     @staticmethod
     def _print_tables(tables: List[Dict[str, Any]]):
@@ -54,4 +54,4 @@ class SlidePrinter:
         for table_info in tables:
             table_obj = table_info['table_obj']
             table_name = table_info['name']
-            print(f"  \033[1m{table_name}\033[0;0m. Table: {table_obj.rows}x{table_obj.cols}")
+            print(f"  \033[1m{table_name}\033[0;0m : {table_obj.rows}x{table_obj.cols}")
