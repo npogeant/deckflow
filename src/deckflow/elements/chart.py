@@ -7,7 +7,7 @@ from ..updaters.chart_updater import ChartUpdater
 class DeckChart:
     """Class to manage an individual PowerPoint chart."""
 
-    def __init__(self, chart: Any, name: str):
+    def __init__(self, shape: Any, chart: Any, name: str):
         """
         Initialize with a PowerPoint chart object
         
@@ -15,6 +15,7 @@ class DeckChart:
             chart: python-pptx Chart object
             name: Chart name extracted
         """
+        self.shape = shape
         self.chart = chart
         self.name = name
         self.type = getattr(chart, "chart_type", None)

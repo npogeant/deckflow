@@ -15,7 +15,7 @@ class ChartUpdater:
             chart_data = CategoryChartData()
             chart_data.categories = data['categories']
             for name, values in data['series'].items():
-                clean_values = [v if v is not None else 0 for v in values]
+                clean_values = [v for v in values]
                 chart_data.add_series(name, clean_values)
             self.chart.replace_data(chart_data)
             return True

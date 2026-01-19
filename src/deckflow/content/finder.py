@@ -54,7 +54,7 @@ class ContentFinder:
     def _add_table(self, shape: Any, path: str) -> None:
         self.tables.append({
             'name': shape.name,
-            'table_obj': DeckTable(shape.table, shape.name),
+            'table_obj': DeckTable(shape, shape.table, shape.name),
             'shape': shape,
             'path': path
         })
@@ -63,7 +63,7 @@ class ContentFinder:
     def _add_chart(self, shape, path):
         self.charts.append({
             'name': shape.name,
-            'chart_obj': DeckChart(shape.chart, shape.name),
+            'chart_obj': DeckChart(shape, shape.chart, shape.name),
             'raw_chart': shape.chart,
             'type': shape.chart.chart_type,
             'shape': shape,

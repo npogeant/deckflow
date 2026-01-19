@@ -1,13 +1,15 @@
 from typing import Any, List, Optional, Union
 
 from ..content.table_extractor import extract_table_data
+from ..formatters.color_analyzer import ColorAnalyzer
+from ..formatters.font_properties import copy_font_properties
 from ..updaters.table_updater import TableUpdater
 from ..formatters.table_printer import TablePrinter
 
 class DeckTable:
     """Class to manage an individual PowerPoint table."""
     
-    def __init__(self, table: Any, name: str):
+    def __init__(self, shape: Any, table: Any, name: str):
         """
         Initialize with a PowerPoint table object
         
@@ -15,13 +17,14 @@ class DeckTable:
             table: python-pptx Table object
             name: Table name extracted
         """
+        self.shape = shape
         self.table = table
         self.name = name
         self.rows = len(table.rows)
         self.cols = len(table.columns)
         self.data = extract_table_data(table)
         self.original_data = [row[:] for row in self.data]
-        self._updater = TableUpdater(self)
+        self._updater = TableUpdater(self, ColorAnalyzer, copy_font_properties)
     
     def get_data(self) -> List[List[str]]:
         return [row[:] for row in self.data]
@@ -47,17 +50,17 @@ class DeckTable:
             print(f"Invalid column index {col_index}. Table has {self.cols} columns")
             return None
         
-    def update_cell(self, row: int, col: int, value: str):
+    def update_cell(self, row: int, col: int, value: str, color_by_value: bool = False):
         self._updater.update_cell(row, col, value)
-        return self._updater.save_changes()
+        return self._updater.save_changes(color_by_value=color_by_value)
     
-    def update_row(self, row_index: int, values: List[str]):
+    def update_row(self, row_index: int, values: List[str], color_by_value: bool = False):
         self._updater.update_row(row_index, values)
-        return self._updater.save_changes()
+        return self._updater.save_changes(color_by_value=color_by_value)
     
-    def update_column(self, col_index: int, values: List[str]):
+    def update_column(self, col_index: int, values: List[str], color_by_value: bool = False):
         self._updater.update_column(col_index, values)
-        return self._updater.save_changes()
+        return self._updater.save_changes(color_by_value=color_by_value)
     
     def show_data(self):
         return TablePrinter.print_data(self)
