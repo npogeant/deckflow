@@ -76,7 +76,7 @@ class DeckSlide:
                 chart.update_series(series_name, values)
         chart.save_changes()
 
-    def update_table(self, name: str, new_data: List, by_rows: bool = True, by_columns: bool = False) -> None:
+    def update_table(self, name: str, new_data: List, by_rows: bool = True, by_columns: bool = False, color_by_value: bool = False) -> None:
         """Update a table with new data either by rows or by columns."""
         if by_rows and by_columns:
             raise ValueError("Only one of by_rows or by_columns can be True.")
@@ -90,10 +90,10 @@ class DeckSlide:
 
         if by_rows:
             for row_idx, row_data in enumerate(new_data):
-                table.update_row(row_idx, row_data)
+                table.update_row(row_idx, row_data, color_by_value=color_by_value)
         elif by_columns:
             for col_idx, col_data in enumerate(new_data):
-                table.update_column(col_idx, col_data)
+                table.update_column(col_idx, col_data, color_by_value=color_by_value)
 
     def add_image_from_text(self, text_name: str, image_path: str, keep_height: bool = True, keep_width: bool = False) -> None:
         """Add an image to the slide positioned at a text element's location."""
