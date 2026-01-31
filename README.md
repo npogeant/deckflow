@@ -1,4 +1,4 @@
-# Deckflow
+![alt text](deckflow.png)
 
 A library to manage the content of PowerPoint presentations, built on python-pptx. Deckflow enables you to extract, analyze, and modify the content of PPTX files in a simple and intuitive way.
 
