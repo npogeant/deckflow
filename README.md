@@ -48,7 +48,7 @@ slide.update_text("TextName", "New Text")
 chart = slide.get_chart("ChartName")
 data = chart.get_data()
 
-# update categories and series (example data)
+# Update categories and series (example data)
 slide.update_chart("ChartName", {
     'categories': ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'],
     'series': {
