@@ -1,4 +1,7 @@
+import logging
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 class ChartUpdater:
     """Updater for chart elements, preserving formatting/colors."""
@@ -19,6 +22,6 @@ class ChartUpdater:
                 chart_data.add_series(name, clean_values)
             self.chart.replace_data(chart_data)
             return True
-        except Exception as e:
-            print(f"Error applying chart data: {e}")
+        except Exception:
+            logger.exception("Error applying chart data")
             return False

@@ -69,12 +69,7 @@ class DeckSlide:
         if not chart:
             raise ValueError(f"Chart '{name}' not found")
 
-        if "categories" in new_data:
-            chart.update_categories(new_data["categories"])
-        if "series" in new_data:
-            for series_name, values in new_data["series"].items():
-                chart.update_series(series_name, values)
-        chart.save_changes()
+        chart.update(new_data)
 
     def update_table(self, name: str, new_data: List, by_rows: bool = True, by_columns: bool = False, color_by_value: bool = False) -> None:
         """Update a table with new data either by rows or by columns."""
@@ -107,32 +102,24 @@ class DeckSlide:
         if not success:
             raise RuntimeError(f"Failed to add image at text element '{text_name}'")
 
+    def _remove_element(self, name: str, getter, label: str) -> bool:
+        """Look up an element by name via getter and remove its shape from the slide."""
+        element = getter(name)
+        if not element:
+            raise ValueError(f"{label} '{name}' not found")
+        removed = ElementRemover.remove_shape(element.shape)
+        if not removed:
+            raise RuntimeError(f"Failed to remove {label.lower()} '{name}'")
+        return True
+
     def remove_text(self, name: str) -> bool:
         """Remove a text element by its name."""
-        text_obj = self.get_text(name)
-        if not text_obj:
-            raise ValueError(f"Text element '{name}' not found")
-        removed = ElementRemover.remove_shape(text_obj.shape)
-        if not removed:
-            raise RuntimeError(f"Failed to remove text element '{name}'")
-        return True
+        return self._remove_element(name, self.get_text, "Text element")
 
     def remove_chart(self, name: str) -> bool:
         """Remove a chart element by its name."""
-        chart_obj = self.get_chart(name)
-        if not chart_obj:
-            raise ValueError(f"Chart '{name}' not found")
-        removed = ElementRemover.remove_shape(chart_obj.shape)
-        if not removed:
-            raise RuntimeError(f"Failed to remove chart '{name}'")
-        return True
+        return self._remove_element(name, self.get_chart, "Chart")
 
     def remove_table(self, name: str) -> bool:
         """Remove a table element by its name."""
-        table_obj = self.get_table(name)
-        if not table_obj:
-            raise ValueError(f"Table '{name}' not found")
-        removed = ElementRemover.remove_shape(table_obj.shape)
-        if not removed:
-            raise RuntimeError(f"Failed to remove table '{name}'")
-        return True
+        return self._remove_element(name, self.get_table, "Table")

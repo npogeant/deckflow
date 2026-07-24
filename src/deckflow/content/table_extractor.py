@@ -1,4 +1,7 @@
+import logging
 from typing import Any, List
+
+logger = logging.getLogger(__name__)
 
 def extract_table_data(table: Any) -> List[List[str]]:
     """ 
@@ -14,7 +17,7 @@ def extract_table_data(table: Any) -> List[List[str]]:
             for cell in row.cells:
                 row_data.append(cell.text)
             data.append(row_data)
-    except Exception as e:
-        print(f"Error extracting table data: {e}")
+    except Exception:
+        logger.exception("Error extracting table data")
     
     return data

@@ -1,4 +1,7 @@
+import logging
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 def copy_font_properties(source_font: Any, target_font: Any):
     """Copy font properties while tolerating missing attributes."""
@@ -22,5 +25,5 @@ def copy_font_properties(source_font: Any, target_font: Any):
                     target_font.color.brightness = source_font.color.brightness
         except Exception:
             pass
-    except Exception as e:
-        print(f"Warning: Could not copy some font properties: {e}")
+    except Exception:
+        logger.warning("Could not copy some font properties", exc_info=True)

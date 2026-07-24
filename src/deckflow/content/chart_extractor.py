@@ -1,4 +1,7 @@
+import logging
 from typing import Any, Dict, List
+
+logger = logging.getLogger(__name__)
 
 def extract_chart_data(chart: Any) -> Dict[str, Any]:
     """ Extract chart data safely from a pptx chart object."""
@@ -19,6 +22,6 @@ def extract_chart_data(chart: Any) -> Dict[str, Any]:
                 if not isinstance(data.get('series'), dict):
                     data['series'] = {}
                 data['series'][name] = values
-    except Exception as e:
-        print(f"Error extracting chart data: {e}")
+    except Exception:
+        logger.exception("Error extracting chart data")
     return data

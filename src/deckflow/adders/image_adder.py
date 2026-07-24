@@ -1,5 +1,8 @@
+import logging
 from typing import Any
 from PIL import Image
+
+logger = logging.getLogger(__name__)
 
 class ImageAdder:
     """Adder for adding images to slides."""
@@ -49,6 +52,6 @@ class ImageAdder:
             slide.shapes.add_picture(image_path, left=left, top=top, width=width, height=height)
             return True
             
-        except Exception as e:
-            print(f"Error adding image: {e}")
+        except Exception:
+            logger.exception("Error adding image")
             return False

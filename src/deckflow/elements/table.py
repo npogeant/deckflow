@@ -1,3 +1,4 @@
+import logging
 from typing import Any, List, Optional, Union
 
 from ..content.table_extractor import extract_table_data
@@ -5,6 +6,8 @@ from ..formatters.color_analyzer import ColorAnalyzer
 from ..formatters.font_properties import copy_font_properties
 from ..updaters.table_updater import TableUpdater
 from ..formatters.table_printer import TablePrinter
+
+logger = logging.getLogger(__name__)
 
 class DeckTable:
     """Class to manage an individual PowerPoint table."""
@@ -33,21 +36,21 @@ class DeckTable:
         if 0 <= row < self.rows and 0 <= col < self.cols:
             return self.data[row][col]
         else:
-            print(f"Invalid cell indices ({row}, {col}). Table size: {self.rows}x{self.cols}")
+            logger.warning("Invalid cell indices (%d, %d). Table size: %dx%d", row, col, self.rows, self.cols)
             return None
-    
+
     def get_row(self, row_index: int) -> Optional[List[str]]:
         if 0 <= row_index < self.rows:
             return self.data[row_index][:]
         else:
-            print(f"Invalid row index {row_index}. Table has {self.rows} rows")
+            logger.warning("Invalid row index %d. Table has %d rows", row_index, self.rows)
             return None
-    
+
     def get_column(self, col_index: int) -> Optional[List[str]]:
         if 0 <= col_index < self.cols:
             return [row[col_index] for row in self.data]
         else:
-            print(f"Invalid column index {col_index}. Table has {self.cols} columns")
+            logger.warning("Invalid column index %d. Table has %d columns", col_index, self.cols)
             return None
         
     def update_cell(self, row: int, col: int, value: str, color_by_value: bool = False):
