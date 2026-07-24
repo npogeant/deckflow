@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, Dict, List
 
 from copy import deepcopy
 from ..content.chart_extractor import extract_chart_data
@@ -33,6 +33,16 @@ class DeckChart:
     def update_categories(self, new_categories: List[str]):
         self.data['categories'] = list(new_categories)
         return self._updater.apply(self.data)
-    
+
+    def update(self, new_data: Dict[str, Any]):
+        """Merge categories/series from new_data and apply in a single write."""
+        if "categories" in new_data:
+            self.data['categories'] = list(new_data["categories"])
+        if "series" in new_data:
+            series = self.data.setdefault('series', {})
+            for series_name, values in new_data["series"].items():
+                series[series_name] = [v if v is not None else 0 for v in values]
+        return self._updater.apply(self.data)
+
     def save_changes(self):
         return self._updater.apply(self.data)

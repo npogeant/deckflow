@@ -69,12 +69,7 @@ class DeckSlide:
         if not chart:
             raise ValueError(f"Chart '{name}' not found")
 
-        if "categories" in new_data:
-            chart.update_categories(new_data["categories"])
-        if "series" in new_data:
-            for series_name, values in new_data["series"].items():
-                chart.update_series(series_name, values)
-        chart.save_changes()
+        chart.update(new_data)
 
     def update_table(self, name: str, new_data: List, by_rows: bool = True, by_columns: bool = False, color_by_value: bool = False) -> None:
         """Update a table with new data either by rows or by columns."""
