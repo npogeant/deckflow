@@ -1,4 +1,7 @@
+import logging
 from typing import Any, List, Dict, Optional
+
+logger = logging.getLogger(__name__)
 
 
 class ContentRegistry:
@@ -14,12 +17,12 @@ class ContentRegistry:
         from .duplicate import DuplicateManager
         
         if DuplicateManager.has_duplicates(items, name):
-            print(f"{name} has duplicates!")
+            logger.warning("%s has duplicates!", name)
             return None
-        
+
         item = next((item for item in items if item['name'] == name), None)
         if item is None:
-            print(f"No {item_type} found with this name")
+            logger.warning("No %s found with this name: %s", item_type, name)
             return None
         
         return item

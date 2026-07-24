@@ -1,9 +1,12 @@
+import logging
 from typing import Any
 
 from ..content.text_extractor import extract_text
 from ..formatters.color_analyzer import ColorAnalyzer
 from ..formatters.font_properties import copy_font_properties
 from ..updaters.text_updater import TextUpdater
+
+logger = logging.getLogger(__name__)
 
 class DeckText:
     """Class to manage an individual PowerPoint text element."""
@@ -34,7 +37,7 @@ class DeckText:
         self.color_by_value = color_by_value
 
         if self.current_content == self.original_content:
-            print(f"No changes to save for shape {self.name}")
+            logger.debug("No changes to save for shape %s", self.name)
             return True
 
         try:
@@ -43,10 +46,10 @@ class DeckText:
             elif hasattr(self.shape, "text"):
                 self.shape.text = self.current_content
             else:
-                print(f"Text {self.name} has no text support")
+                logger.warning("Text %s has no text support", self.name)
                 return False
-            print(f"Text updated for {self.name}")
+            logger.debug("Text updated for %s", self.name)
             return True
-        except Exception as e:
-            print(f"Error updating text {self.name}: {e}")
+        except Exception:
+            logger.exception("Error updating text %s", self.name)
             return False
